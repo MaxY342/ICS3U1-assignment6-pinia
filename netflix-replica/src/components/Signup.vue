@@ -1,14 +1,47 @@
 <script setup>
+import { ref } from "vue";
+import { RouterLink, useRouter } from 'vue-router';
+import { useStore } from '@/stores/index'
 
+const router = useRouter();
+const firstName = ref("");
+const lastName = ref("");
+const email = ref("");
+const username = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+const store = useStore();
+
+const handleSignup = () => {
+  if (confirmPassword.value !== password.value) {
+    alert("Confirm Password Does Not Match Password");
+  } else {
+    // TODO: add info to pinia
+    store.firstName = firstName.value;
+    store.lastName = lastName.value;
+    store.username = username.value;
+    store.email = email.value;
+    store.password = password.value;
+    router.push("/home");
+  }
+};
 </script>
 
 <template>
-  <form class="login">
-    <label>Username/Email</label>
-    <input>
+  <form class="login" @submit.prevent="handleSignup">
+    <label>First Name</label>
+    <input required v-model="firstName">
+    <label>Last Name</label>
+    <input required v-model="lastName">
+    <label>Username</label>
+    <input required v-model="username">
+    <label>Email</label>
+    <input type="email" required v-model="email">
     <label>Password</label>
-    <input type="password">
-    <button>Sign-up</button>
+    <input type="password" required v-model="password">
+    <label>Confirm Password</label>
+    <input type="password" required v-model="confirmPassword">
+    <button type="submit">Sign-up</button>
   </form>
 </template>
 

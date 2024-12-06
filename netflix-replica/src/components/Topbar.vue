@@ -10,6 +10,7 @@
         <RouterLink to="/">Landing Page</RouterLink>
         <RouterLink to="/home">Homepage</RouterLink>
         <RouterLink to="/filter">Filter</RouterLink>
+        <RouterLink to="/cart">My Cart</RouterLink>
       </div>
     </div>
     <h1 class="logo">Metflix</h1>

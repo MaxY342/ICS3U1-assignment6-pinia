@@ -1,7 +1,9 @@
 <script setup>
 import axios from "axios";
 import { useRoute } from "vue-router";
+import { useStore } from "../stores/index";
 
+const store = useStore();
 const route = useRoute();
 const response = await axios.get(`https://api.themoviedb.org/3/${route.params.type}/${route.params.id}?api_key=${import.meta.env.VITE_TMDB_KEY}&append_to_response=videos`);
 </script>
@@ -22,6 +24,11 @@ const response = await axios.get(`https://api.themoviedb.org/3/${route.params.ty
         <h1>Details</h1>
         <p class="movie-overview">{{ response.data.overview }}</p>
         <a class="movie-site" :href="response.data.homepage" target="_blank">Official Movie Site</a>
+        <button
+          @click="store.cart.set(route.params.id, { title: response.data.original_title, url: response.data.poster_path })"
+          class="movie-site">
+          Buy
+        </button>
       </div>
     </div>
 
