@@ -1,5 +1,6 @@
 <script setup>
-
+import { useRoute } from 'vue-router';
+const route = useRoute();
 </script>
 
 <template>
@@ -14,15 +15,21 @@
       </div>
     </div>
     <h1 class="logo">Metflix</h1>
-    <RouterLink to="/signup" class="sign-up-btn">Sign-up</RouterLink>
-    <RouterLink to="/login" class="log-in-btn">Login</RouterLink>
+    <div v-if="route.name == 'landingPage' || route.name == 'signup' || route.name == 'login'" class="right-buttons">
+      <RouterLink v-if="route.name !== 'signup'" to="/signup" class="sign-up-btn">Sign-up</RouterLink>
+      <RouterLink v-if="route.name !== 'login'" to="/login" class="log-in-btn">Login</RouterLink>
+    </div>
+    <div v-if="route.name !== 'landingPage' && route.name !== 'signup' && route.name !== 'login'" class="right-buttons">
+      <RouterLink v-if="route.name !== 'settings'" to="/settings" class="sign-up-btn">Settings</RouterLink>
+      <RouterLink v-if="route.name !== 'cart'" to="/cart" class="log-in-btn">Cart</RouterLink>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .topbar {
   display: grid;
-  grid-template-columns: auto auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto;
   gap: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -100,5 +107,11 @@
   grid-column: 2/2;
   color: red;
   margin-left: 20px;
+}
+
+.right-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 </style>

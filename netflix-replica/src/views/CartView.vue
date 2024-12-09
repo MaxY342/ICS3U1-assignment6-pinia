@@ -1,21 +1,31 @@
 <script setup>
+import Topbar from '../components/Topbar.vue'
+import Footer from '../components/Footer.vue'
 import { useStore } from '../stores/index';
 
 const store = useStore();
 </script>
 
 <template>
+    <Topbar />
     <div class="cart">
-        <h1>Shopping Cart</h1>
-        <div class="item" v-for="([key, value]) in store.cart">
-            <img :src="`https://image.tmdb.org/t/p/w500${value.url}`" />
-            <h1>{{ value.title }}</h1>
-            <button @click="store.cart.delete(key)">Remove</button>
+        <div class="content">
+            <h1>Shopping Cart</h1>
+            <div class="item" v-for="([key, value]) in store.cart">
+                <img :src="`https://image.tmdb.org/t/p/w500${value.url}`" />
+                <h1>{{ value.title }}</h1>
+                <button @click="store.cart.delete(key)">Remove</button>
+            </div>
         </div>
     </div>
+    <Footer />
 </template>
 
 <style scoped>
+.content {
+    background-color: #151515;
+    border-radius: 10px;
+}
 h1 {
     color: #e50914;
     text-align: center;
@@ -34,9 +44,9 @@ button {
 .cart {
     display: flex;
     flex-direction: column;
-    background-color: #141414;
+    background-color: #2f2f2f;
+    padding: 4rem;
     gap: 2rem;
-    height: 100vw;
 }
 
 .item {
