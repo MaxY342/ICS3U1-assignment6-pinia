@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { RouterLink, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useStore } from '@/stores/index'
 
 const router = useRouter();
@@ -16,7 +16,6 @@ const handleSignup = () => {
   if (confirmPassword.value !== password.value) {
     alert("Confirm Password Does Not Match Password");
   } else {
-    // TODO: add info to pinia
     store.firstName = firstName.value;
     store.lastName = lastName.value;
     store.username = username.value;

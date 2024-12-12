@@ -50,8 +50,8 @@ function closeChanges() {
       <h2>Change {{ changeFormType == 'firstName' ? 'First Name' : 'Last Name' }}</h2>
       <input placeholder="Enter new value" v-model="newValue">
       <div class="change-actions">
-        <button @click="saveChanges(changeFormType, newValue)">Save</button>
         <button @click="closeChanges">Cancel</button>
+        <button @click="saveChanges(changeFormType, newValue)">Save</button>
       </div>
     </div>
   </div>

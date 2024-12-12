@@ -1,5 +1,8 @@
 <script setup>
 import { useRoute } from 'vue-router';
+import { useStore } from '@/stores';
+
+const store = useStore();
 const route = useRoute();
 </script>
 
@@ -15,6 +18,7 @@ const route = useRoute();
       </div>
     </div>
     <h1 class="logo">Metflix</h1>
+    <h1 class="greeting">Hello, {{ store.firstName }}</h1>
     <div v-if="route.name == 'landingPage' || route.name == 'signup' || route.name == 'login'" class="right-buttons">
       <RouterLink v-if="route.name !== 'signup'" to="/signup" class="sign-up-btn">Sign-up</RouterLink>
       <RouterLink v-if="route.name !== 'login'" to="/login" class="log-in-btn">Login</RouterLink>
@@ -30,15 +34,11 @@ const route = useRoute();
 <style scoped>
 .topbar {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto auto 1fr auto;
   gap: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
   align-items: center;
-}
-
-.sign-up-btn {
-  grid-column: 4/4;
 }
 
 .sidebarbtn,
@@ -77,7 +77,7 @@ const route = useRoute();
   display: grid;
   animation-name: slide;
   animation-duration: 1s;
-  grid-template-rows: auto auto auto auto auto 1fr;
+  grid-template-rows: auto auto auto auto 1fr;
 }
 
 @keyframes slide {
@@ -104,11 +104,15 @@ const route = useRoute();
   opacity: 0.5;
 }
 
-.logo {
+.logo, .greeting {
   margin: 0;
-  grid-column: 2/2;
   color: red;
   margin-left: 20px;
+}
+
+.greeting {
+  color: white;
+  font-weight: 500;
 }
 
 .right-buttons {
