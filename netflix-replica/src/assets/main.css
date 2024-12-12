@@ -7,6 +7,14 @@ body {
   transition: opacity 1s ease;
 }
 
+.item {
+  justify-items: center;
+}
+
+.cart-button {
+  margin: 10px;
+}
+
 .movie-gallery {
   display: flex;
   flex-direction: column;
@@ -33,6 +41,7 @@ body {
 .movie-card:hover,
 button:hover {
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .movie-poster {

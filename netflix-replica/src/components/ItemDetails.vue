@@ -25,9 +25,9 @@ const response = await axios.get(`https://api.themoviedb.org/3/${route.params.ty
         <p class="movie-overview">{{ response.data.overview }}</p>
         <a class="movie-site" :href="response.data.homepage" target="_blank">Official Movie Site</a>
         <button
-          @click="store.cart.set(route.params.id, { title: response.data.original_title, url: response.data.poster_path })"
+          @click="store.cart.set(response.data.id, { title: response.data.original_title, url: response.data.poster_path })"
           class="movie-site">
-          Buy
+          {{ store.cart.has(response.data.id) ? 'Added' : 'Add to Cart' }}
         </button>
       </div>
     </div>
@@ -61,9 +61,9 @@ const response = await axios.get(`https://api.themoviedb.org/3/${route.params.ty
         <p class="movie-overview">{{ response.data.overview }}</p>
         <a class="movie-site" :href="response.data.homepage" target="_blank">Official Movie Site</a>
         <button
-          @click="store.cart.set(route.params.id, { title: response.data.name, url: response.data.poster_path })"
+          @click="store.cart.set(response.data.id, { title: response.data.name, url: response.data.poster_path })"
           class="movie-site">
-          Buy
+          {{ store.cart.has(response.data.id) ? 'Added' : 'Add to Cart' }}
         </button>
       </div>
     </div>

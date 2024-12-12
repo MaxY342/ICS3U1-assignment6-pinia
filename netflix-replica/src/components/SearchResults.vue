@@ -2,7 +2,9 @@
 import axios from "axios";
 import { useRoute, useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
+import { useStore } from "../stores/index";
 
+const store = useStore();
 const route = useRoute();
 const router = useRouter();
 const searchResults = ref([]);
@@ -27,10 +29,14 @@ onMounted(() => {
   <div class="search-results">
     <h1>Search Results</h1>
     <div class="movie-list" v-if="searchResults.length">
-      <div v-for="item in searchResults" :key="item.id" class="movie-card"
-        @click="getMovieDetails(item.media_type, item.id)">
-        <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
-        <p class="movie-title">{{ item.media_type === 'tv' ? item.name : item.title }}</p>
+      <div v-for="item in searchResults" :key="item.id" class="item">
+        <div class="movie-card" @click="getMovieDetails(item.media_type, item.id)">
+          <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
+          <p class="movie-title">{{ item.media_type === 'tv' ? item.name : item.title }}</p>
+        </div>
+        <button @click="store.cart.set(item.id, { title: item.title || item.name, url: item.poster_path })" class="cart-button">
+          {{ store.cart.has(item.id) ? 'Added' : 'Add to Cart' }}
+        </button>
       </div>
     </div>
     <p v-else>No results found.</p>
@@ -50,5 +56,19 @@ h1 {
   padding: 4rem;
   color: white;
   border-radius: 10px;
+}
+
+button {
+  margin-top: 10px;
+  background-color: #e20c0c;
+  padding: 1rem;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #c20000;
+  cursor: pointer;
 }
 </style>

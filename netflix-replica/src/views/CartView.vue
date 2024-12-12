@@ -4,6 +4,7 @@ import Footer from '../components/Footer.vue'
 import { useStore } from '../stores/index';
 
 const store = useStore();
+console.log(store);
 </script>
 
 <template>
@@ -25,10 +26,13 @@ const store = useStore();
 .content {
     background-color: #151515;
     border-radius: 10px;
+    color: white;
 }
 h1 {
-    color: #e50914;
-    text-align: center;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  margin-bottom: 4rem;
 }
 
 button {

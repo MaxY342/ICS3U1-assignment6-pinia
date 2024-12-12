@@ -2,7 +2,9 @@
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
+import { useStore } from '../stores/index';
 
+const store = useStore();
 const router = useRouter();
 const nowPlaying = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}`);
 const trending = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${import.meta.env.VITE_TMDB_KEY}`);
@@ -30,10 +32,14 @@ function getMovieDetails(type, id) {
   <div class="movie-gallery">
     <h1>Now Playing</h1>
     <div class="movie-list">
-      <div v-for="movie in nowPlaying.data.results.slice(0, nowPlayingLimit)" :key="movie.id" class="movie-card"
-        @click="getMovieDetails('movie', movie.id)">
-        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
-        <p class="movie-title">{{ movie.title }}</p>
+      <div v-for="movie in nowPlaying.data.results.slice(0, nowPlayingLimit)" :key="movie.id" class="item">
+        <div class="movie-card" @click="getMovieDetails('movie', movie.id)">
+          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
+          <p class="movie-title">{{ movie.title }}</p>
+        </div>
+        <button @click="store.cart.set(movie.id, { title: movie.title, url: movie.poster_path })" class="cart-button">
+          {{ store.cart.has(movie.id) ? 'Added' : 'Add to Cart' }}
+        </button>
       </div>
     </div>
     <button
@@ -42,10 +48,14 @@ function getMovieDetails(type, id) {
     <hr style="width:100%">
     <h1>Trending</h1>
     <div class="movie-list">
-      <div v-for="item in trending.data.results.slice(0, trendingLimit)" :key="item.id" class="movie-card"
-        @click="getMovieDetails(item.media_type, item.id)">
-        <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
-        <p class="movie-title">{{ item.media_type === 'tv' ? item.name : item.title }}</p>
+      <div v-for="item in trending.data.results.slice(0, trendingLimit)" :key="item.id" class="item">
+        <div class="movie-card" @click="getMovieDetails(item.media_type, item.id)">
+          <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
+          <p class="movie-title">{{ item.media_type === 'tv' ? item.name : item.title }}</p>
+        </div>
+        <button @click="store.cart.set(item.id, { title: item.title || item.name, url: item.poster_path })" class="cart-button">
+          {{ store.cart.has(item.id) ? 'Added' : 'Add to Cart' }}
+        </button>
       </div>
     </div>
     <button
@@ -54,10 +64,14 @@ function getMovieDetails(type, id) {
     <hr style="width:100%">
     <h1>Top Rated</h1>
     <div class="movie-list">
-      <div v-for="movie in topRated.data.results.slice(0, topRatedLimit)" :key="movie.id" class="movie-card"
-        @click="getMovieDetails('movie', movie.id)">
-        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
-        <p class="movie-title">{{ movie.title }}</p>
+      <div v-for="movie in topRated.data.results.slice(0, topRatedLimit)" :key="movie.id" class="item">
+        <div class="movie-card" @click="getMovieDetails('movie', movie.id)">
+          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
+          <p class="movie-title">{{ movie.title }}</p>
+        </div>
+        <button @click="store.cart.set(movie.id, { title: movie.title, url: movie.poster_path })" class="cart-button">
+          {{ store.cart.has(movie.id) ? 'Added' : 'Add to Cart' }}
+        </button>
       </div>
     </div>
     <button
@@ -66,10 +80,14 @@ function getMovieDetails(type, id) {
     <hr style="width:100%">
     <h1>Upcoming</h1>
     <div class="movie-list">
-      <div v-for="movie in upcoming.data.results.slice(0, upcomingLimit)" :key="movie.id" class="movie-card"
-        @click="getMovieDetails('movie', movie.id)">
-        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
-        <p class="movie-title">{{ movie.title }}</p>
+      <div v-for="movie in upcoming.data.results.slice(0, upcomingLimit)" :key="movie.id" class="item">
+        <div class="movie-card" @click="getMovieDetails('movie', movie.id)">
+          <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" alt="Movie Poster" class="movie-poster" />
+          <p class="movie-title">{{ movie.title }}</p>
+        </div>
+        <button @click="store.cart.set(movie.id, { title: movie.title, url: movie.poster_path })" class="cart-button">
+          {{ store.cart.has(movie.id) ? 'Added' : 'Add to Cart' }}
+        </button>
       </div>
     </div>
     <button
@@ -95,12 +113,15 @@ h1 {
 button {
   background-color: #e20c0c;
   padding: 1rem;
-  margin-top: 50px;
+  margin: 50px 0;
   color: white;
   border: 0;
   border-radius: 10px;
-  margin-bottom: 50px;
   transition: transform 0.2s;
+}
+
+.cart-button {
+  margin: 10px;
 }
 
 button:hover {

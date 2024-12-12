@@ -7,6 +7,7 @@ import FilterView from '../views/FilterView.vue'
 import ItemDetailsVeiw from '@/views/ItemDetailsVeiw.vue'
 import SearchResultsVeiw from '@/views/SearchResultsVeiw.vue'
 import CartView from '@/views/CartView.vue'
+import SettingsView from '@/views/SettingsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: CartView,
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: SettingsView,
     },
   ],
 })

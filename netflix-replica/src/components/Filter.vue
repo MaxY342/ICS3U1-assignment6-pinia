@@ -2,7 +2,9 @@
 import axios from "axios";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "../stores/index";
 
+const store = useStore();
 const router = useRouter();
 const selectedGenres = ref([]);
 const selectedYear = ref('');
@@ -142,9 +144,14 @@ watch(type, () => {
   <div class="filter-results">
     <h1>Filter Results</h1>
     <div class="movie-list">
-      <div v-for="item in items" :key="item.id" class="movie-card" @click="getMovieDetails(type, item.id)">
-        <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
-        <p class="movie-title">{{ type == 'movie' ? item.title : item.name }}</p>
+      <div v-for="item in items" :key="item.id" class="item">
+        <div class="movie-card" @click="getMovieDetails(type, item.id)">
+          <img :src="`https://image.tmdb.org/t/p/w500${item.poster_path}`" alt="Movie Poster" class="movie-poster" />
+          <p class="movie-title">{{ type == 'movie' ? item.title : item.name }}</p>
+        </div>
+        <button @click="store.cart.set(item.id, { title: item.title || item.name, url: item.poster_path })" class="cart-button">
+          {{ store.cart.has(item.id) ? 'Added' : 'Add to Cart' }}
+        </button>
       </div>
     </div>
   </div>
@@ -213,7 +220,7 @@ h1 {
 }
 
 button {
-  margin-top: 50px;
+  margin-top: 10px;
   background-color: #e20c0c;
   padding: 1rem;
   color: white;

@@ -22,6 +22,7 @@ const route = useRoute();
     <div v-if="route.name !== 'landingPage' && route.name !== 'signup' && route.name !== 'login'" class="right-buttons">
       <RouterLink v-if="route.name !== 'settings'" to="/settings" class="sign-up-btn">Settings</RouterLink>
       <RouterLink v-if="route.name !== 'cart'" to="/cart" class="log-in-btn">Cart</RouterLink>
+      <RouterLink to="/" class="log-in-btn">Log Out</RouterLink>
     </div>
   </div>
 </template>
@@ -50,12 +51,13 @@ const route = useRoute();
   border: none;
   z-index: 1;
   text-decoration: none;
+  border-radius: 10px;
 }
 
 .sidebar-content {
   display: none;
   position: fixed;
-  background-color: #444444;
+  background-color: #2f2f2f;
   width: 300px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 3;
