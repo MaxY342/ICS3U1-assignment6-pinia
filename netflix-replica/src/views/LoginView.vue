@@ -1,6 +1,7 @@
 <script setup>
-import Login from '../components/Login.vue'
+import Login from '../components/Login.vue';
 import Topbar from '../components/Topbar.vue';
+import Footer from '../components/Footer.vue';
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import Topbar from '../components/Topbar.vue';
     <div class="login-container">
       <Login class="login" />
     </div>
+    <Footer />
   </main>
 </template>
 

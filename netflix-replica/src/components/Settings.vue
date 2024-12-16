@@ -44,7 +44,6 @@ function closeChanges() {
   </div>
   <p>Email: {{ store.email }}</p>
   <p>Username: {{ store.username }}</p>
-  <p>Password: {{ store.password }}</p>
   <div class="change-form-overlay" v-if="changeFormOpen">
     <div class="change-form">
       <h2>Change {{ changeFormType == 'firstName' ? 'First Name' : 'Last Name' }}</h2>

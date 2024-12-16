@@ -116,6 +116,7 @@ const response = await axios.get(`https://api.themoviedb.org/3/${route.params.ty
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 30vw;
 }
 
 .movie-poster {

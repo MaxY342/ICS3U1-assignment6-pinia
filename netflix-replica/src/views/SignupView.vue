@@ -1,6 +1,7 @@
 <script setup>
-import Signup from '../components/Signup.vue'
+import Signup from '../components/Signup.vue';
 import Topbar from '../components/Topbar.vue';
+import Footer from '../components/Footer.vue';
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import Topbar from '../components/Topbar.vue';
     <div class="signup-container">
       <Signup class="signup" />
     </div>
+    <Footer />
   </main>
 </template>
 
@@ -24,6 +26,7 @@ main {
   justify-content: center;
   align-items: center;
   background-color: #2f2f2f;
+  padding: 5rem;
 }
 
 .signup {

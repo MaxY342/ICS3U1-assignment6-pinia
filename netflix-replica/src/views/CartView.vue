@@ -12,13 +12,11 @@ console.log(store);
     <div class="cart">
         <div class="content">
             <h1>Shopping Cart</h1>
-            <div class="item-container">
+            <div class="items-container">
                 <div class="item" v-for="([key, value]) in store.cart">
                     <img :src="`https://image.tmdb.org/t/p/w500${value.url}`" />
                     <h1>{{ value.title }}</h1>
-                    <div class="right-details">
-                        <button @click="store.cart.delete(key)">Remove</button>
-                    </div>
+                    <button @click="store.cart.delete(key)">Remove</button>
                 </div>
             </div>
         </div>
@@ -31,6 +29,7 @@ console.log(store);
     background-color: #151515;
     border-radius: 10px;
     color: white;
+    padding: 5rem;
 }
 
 h1 {
@@ -45,16 +44,12 @@ button {
   border: 0;
   border-radius: 10px;
   transition: transform 0.2s;
+  justify-self: end;
 }
 
 button:hover {
   background-color: #c20000;
   cursor: pointer;
-}
-
-.right-details {
-    display: flex;
-    justify-content: flex-end;
 }
 
 .cart {
@@ -65,10 +60,11 @@ button:hover {
     gap: 2rem;
 }
 
-.item-container {
+.items-container {
     display: flex;
     flex-direction: column;
     gap: 5rem;
+    padding: 5rem;
 }
 
 .item {
@@ -78,6 +74,7 @@ button:hover {
     margin-top: 10px;
     margin-bottom: 10px;
     align-items: center;
+    justify-items: left;
 }
 
 img {
